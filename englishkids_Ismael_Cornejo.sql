@@ -1,6 +1,6 @@
 -- ============================================================
 --  EnglishKids - Script de Base de Datos PostgreSQL
---  ODS 4: Educación de Calidad
+--  ODS 4: Edución de Calidad
 --  Aplicación para enseñar inglés a niños
 -- ============================================================
 
@@ -28,7 +28,7 @@ CREATE TABLE usuarios (
     perfil          VARCHAR(20)  NOT NULL DEFAULT 'estudiante'
                         CHECK (perfil IN ('admin','estudiante')),
     activo          BOOLEAN      NOT NULL DEFAULT TRUE,
-    fecha_registro  TIMESTAMP    NOT NULL DEFAULT NOW()
+    fecha_registro  TIMESTAMP     NOT NULL DEFAULT NOW()
 );
 
 -- ============================================================
@@ -68,6 +68,11 @@ CREATE TABLE actividades (
     tipo          VARCHAR(50) NOT NULL,   -- 'quiz','pronunciacion','escritura'
     resultado     VARCHAR(20) NOT NULL,   -- 'correcto','incorrecto'
     puntos        INTEGER     NOT NULL DEFAULT 0,
+    revisado      BOOLEAN     NOT NULL DEFAULT FALSE,
+    aprobado      BOOLEAN,
+    observacion_revision TEXT,
+    id_admin_revisor INTEGER REFERENCES usuarios(id),
+    fecha_revision TIMESTAMP,
     fecha         TIMESTAMP   NOT NULL DEFAULT NOW()
 );
 
@@ -79,8 +84,8 @@ CREATE TABLE bitacora (
     id_usuario INTEGER      REFERENCES usuarios(id),
     accion     VARCHAR(100) NOT NULL,
     detalle    TEXT,
-    ip         VARCHAR(45),
-    fecha      TIMESTAMP    NOT NULL DEFAULT NOW()
+    ip        VARCHAR(45),
+    fecha      TIMESTAMP     NOT NULL DEFAULT NOW()
 );
 
 -- ============================================================
@@ -105,7 +110,7 @@ VALUES
    'estudiante', TRUE);
 
 -- ============================================================
--- CATEGORÍAS
+-- CATEGOR�AS
 -- ============================================================
 INSERT INTO categorias (nombre, nombre_es, descripcion, icono, color_hex)
 VALUES
@@ -129,7 +134,7 @@ VALUES
   (1, 'Bird',     'Pájaro',   'images/animals/bird.png',     'audio/animals/bird.mp3',     'basico'),
   (1, 'Fish',     'Pez',      'images/animals/fish.png',     'audio/animals/fish.mp3',     'basico'),
   (1, 'Rabbit',   'Conejo',   'images/animals/rabbit.png',   'audio/animals/rabbit.mp3',   'basico'),
-  (1, 'Lion',     'León',     'images/animals/lion.png',     'audio/animals/lion.mp3',     'intermedio'),
+  (1, 'Lion',     'Leó',     'images/animals/lion.png',     'audio/animals/lion.mp3',     'intermedio'),
   (1, 'Elephant', 'Elefante', 'images/animals/elephant.png', 'audio/animals/elephant.mp3', 'intermedio'),
   (1, 'Butterfly','Mariposa', 'images/animals/butterfly.png','audio/animals/butterfly.mp3','intermedio'),
   (1, 'Frog',     'Rana',     'images/animals/frog.png',     'audio/animals/frog.mp3',     'basico'),
@@ -137,7 +142,7 @@ VALUES
 
 -- ============================================================
 -- PALABRAS – COLORES (categoría 2)
--- ============================================================
+-- ===========================================================
 INSERT INTO palabras (id_categoria, palabra_en, palabra_es, imagen_url, audio_url, nivel)
 VALUES
   (2, 'Red',    'Rojo',     'images/colors/red.png',    'audio/colors/red.mp3',    'basico'),
@@ -147,8 +152,8 @@ VALUES
   (2, 'Purple', 'Morado',   'images/colors/purple.png', 'audio/colors/purple.mp3', 'basico'),
   (2, 'Orange', 'Naranja',  'images/colors/orange.png', 'audio/colors/orange.mp3', 'basico'),
   (2, 'Pink',   'Rosado',   'images/colors/pink.png',   'audio/colors/pink.mp3',   'basico'),
-  (2, 'Black',  'Negro',    'images/colors/black.png',  'audio/colors/black.mp3',  'basico'),
-  (2, 'White',  'Blanco',   'images/colors/white.png',  'audio/colors/white.mp3',  'basico'),
+  (2, 'Black', 'Negro',    'images/colors/black.png',  'audio/colors/black.mp3',  'basico'),
+  (2, 'White', 'Blanco',   'images/colors/white.png',  'audio/colors/white.mp3',  'basico'),
   (2, 'Brown',  'Café',     'images/colors/brown.png',  'audio/colors/brown.mp3',  'basico');
 
 -- ============================================================
@@ -158,7 +163,7 @@ INSERT INTO palabras (id_categoria, palabra_en, palabra_es, imagen_url, audio_ur
 VALUES
   (3, 'One',     'Uno',    'images/numbers/one.png',     'audio/numbers/one.mp3',     'basico'),
   (3, 'Two',     'Dos',    'images/numbers/two.png',     'audio/numbers/two.mp3',     'basico'),
-  (3, 'Three',   'Tres',   'images/numbers/three.png',   'audio/numbers/three.mp3',   'basico'),
+  (3, 'Three',   'Tres',   images/numbers/three.png',   'audio/numbers/three.mp3',   'basico'),
   (3, 'Four',    'Cuatro', 'images/numbers/four.png',    'audio/numbers/four.mp3',    'basico'),
   (3, 'Five',    'Cinco',  'images/numbers/five.png',    'audio/numbers/five.mp3',    'basico'),
   (3, 'Six',     'Seis',   'images/numbers/six.png',     'audio/numbers/six.mp3',     'basico'),
@@ -180,6 +185,7 @@ VALUES
 -- ============================================================
 CREATE INDEX idx_palabras_categoria ON palabras(id_categoria);
 CREATE INDEX idx_actividades_usuario ON actividades(id_usuario);
+CREATE INDEX idx_actividades_revision ON actividades(revisado, aprobado);
 CREATE INDEX idx_bitacora_usuario    ON bitacora(id_usuario);
 CREATE INDEX idx_bitacora_fecha      ON bitacora(fecha);
 CREATE INDEX idx_usuarios_correo     ON usuarios(correo);

@@ -10,10 +10,10 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
-    // ── Configuración de conexión ──────────────────────────────────
-    private static final String URL      = "jdbc:postgresql://localhost:5432/englishkids";
-    private static final String USER     = "postgres";
-    private static final String PASSWORD = "1234";
+    // ── Configuración de conexión ─────────────────────────────────
+    private static final String URL      = config("ENGLISHKIDS_DB_URL", "jdbc:postgresql://172.17.42.121:5432/englishkids");
+    private static final String USER     = config("ENGLISHKIDS_DB_USER", "alumno");
+    private static final String PASSWORD = config("ENGLISHKIDS_DB_PASSWORD", "1234");
     // Para el servidor del datacenter cambiar a:
     // private static final String URL = "jdbc:postgresql://172.17.42.121:5432/englishkids";
     // private static final String USER = "alumno";
@@ -33,5 +33,13 @@ public class DBConnection {
      */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    private static String config(String key, String defaultValue) {
+        String value = System.getProperty(key);
+        if (value == null || value.trim().isEmpty()) {
+            value = System.getenv(key);
+        }
+        return (value == null || value.trim().isEmpty()) ? defaultValue : value.trim();
     }
 }

@@ -32,7 +32,7 @@ public class AdminServlet extends HttpServlet {
         try (Connection conn = DBConnection.getConnection()) {
             switch (action != null ? action : "") {
 
-                // ── Agregar nuevo usuario ────────────────────────────
+                // ── Agregar nuevo usuario ───────────────────────────
                 case "agregar":
                     agregarUsuario(req, resp, conn, admin, ip);
                     break;
@@ -48,6 +48,9 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "desbloquear":
                     cambiarEstado(req, resp, conn, admin, ip, true);
+                    break;
+                case "revisar_actividad":
+                    revisarActividad(req, resp, conn, admin, ip);
                     break;
 
                 default:
@@ -122,6 +125,28 @@ public class AdminServlet extends HttpServlet {
         LoginServlet.registrarBitacora(conn, admin.getId(), accion,
                 "Admin " + estado + " usuario id=" + id, ip);
         resp.sendRedirect(req.getContextPath() + "/admin/usuarios.jsp?ok=" + estado);
+    }
+
+    private void revisarActividad(HttpServletRequest req, HttpServletResponse resp,
+                                  Connection conn, Usuario admin, String ip)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        boolean aprobado = "aprobar".equals(req.getParameter("decision"));
+        String observacion = req.getParameter("observacion");
+
+        String sql = "UPDATE actividades SET revisado=TRUE, aprobado=?, observacion_revision=?, " +
+                     "id_admin_revisor=?, fecha_revision=NOW() WHERE id=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBoolean(1, aprobado);
+            ps.setString(2, observacion != null ? observacion.trim() : "");
+            ps.setInt(3, admin.getId());
+            ps.setInt(4, id);
+            ps.executeUpdate();
+        }
+
+        LoginServlet.registrarBitacora(conn, admin.getId(), "ADMIN_REVISAR_ACTIVIDAD",
+                "Admin " + (aprobado ? "aprobo" : "marco para revisar") + " actividad id=" + id, ip);
+        resp.sendRedirect(req.getContextPath() + "/admin/actividades.jsp?ok=revision");
     }
 
     /**
