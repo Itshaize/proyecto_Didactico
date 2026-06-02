@@ -5,19 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * DBConnection – Gestión de conexión JDBC a PostgreSQL.
- * Ajustar URL, usuario y contraseña según el entorno.
+ * DBConnection - Gestion de conexion JDBC a PostgreSQL.
+ * Por defecto funciona en local para que el proyecto descargado desde GitHub
+ * corra en cualquier PC con PostgreSQL, base englishkids y usuario alumno/1234.
  */
 public class DBConnection {
 
-    // ── Configuración de conexión ─────────────────────────────────
-    private static final String URL      = config("ENGLISHKIDS_DB_URL", "jdbc:postgresql://172.17.42.121:5432/englishkids");
+    private static final String URL      = config("ENGLISHKIDS_DB_URL", "jdbc:postgresql://localhost:5432/englishkids");
     private static final String USER     = config("ENGLISHKIDS_DB_USER", "alumno");
     private static final String PASSWORD = config("ENGLISHKIDS_DB_PASSWORD", "1234");
-    // Para el servidor del datacenter cambiar a:
-    // private static final String URL = "jdbc:postgresql://172.17.42.121:5432/englishkids";
-    // private static final String USER = "alumno";
-    // private static final String PASSWORD = "1234";
 
     static {
         try {
@@ -28,8 +24,8 @@ public class DBConnection {
     }
 
     /**
-     * Obtiene una nueva conexión a la base de datos.
-     * Cada Servlet debe cerrar la conexión en un bloque finally.
+     * Obtiene una nueva conexion a la base de datos.
+     * Cada Servlet debe cerrar la conexion en un bloque finally.
      */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
