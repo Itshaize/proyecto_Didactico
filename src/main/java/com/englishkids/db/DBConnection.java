@@ -6,12 +6,11 @@ import java.sql.SQLException;
 
 /**
  * DBConnection - Gestion de conexion JDBC a PostgreSQL.
- * Por defecto funciona en local para que el proyecto descargado desde GitHub
- * corra en cualquier PC con PostgreSQL, base englishkids y usuario alumno/1234.
+ * Usa la base del datacenter por defecto para la entrega final.
  */
 public class DBConnection {
 
-    private static final String URL      = config("ENGLISHKIDS_DB_URL", "jdbc:postgresql://localhost:5432/englishkids");
+    private static final String URL      = config("ENGLISHKIDS_DB_URL", "jdbc:postgresql://172.17.42.121:5432/BD_english");
     private static final String USER     = config("ENGLISHKIDS_DB_USER", "alumno");
     private static final String PASSWORD = config("ENGLISHKIDS_DB_PASSWORD", "1234");
 

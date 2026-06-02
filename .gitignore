@@ -3,6 +3,7 @@
 /.classpath
 /.project
 /.metadata/
+/Servers/
 *.class
 *.log
 .DS_Store

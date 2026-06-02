@@ -12,7 +12,7 @@
     }
 
     // Estadísticas generales
-    int totalUsuarios = 0, totalEstudiantes = 0, totalBloqueados = 0, totalActividades = 0;
+    int totalUsuarios = 0, totalEstudiantes = 0, totalBloqueados = 0, totalActividades = 0, pendientesRevision = 0;
     try (Connection conn = DBConnection.getConnection()) {
         ResultSet rs;
 
@@ -31,6 +31,10 @@
 
         rs = conn.createStatement().executeQuery("SELECT COUNT(*) FROM actividades");
         if (rs.next()) totalActividades = rs.getInt(1);
+        rs.close();
+
+        rs = conn.createStatement().executeQuery("SELECT COUNT(*) FROM actividades WHERE revisado=false");
+        if (rs.next()) pendientesRevision = rs.getInt(1);
         rs.close();
     } catch (Exception e) { e.printStackTrace(); }
 %>
@@ -77,6 +81,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/bitacora.jsp">
                         <i class="fas fa-list-alt me-2" aria-hidden="true"></i> Bitácora
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/actividades.jsp">
+                        <i class="fas fa-clipboard-check me-2" aria-hidden="true"></i> Actividades
                     </a>
                 </li>
                 <li class="nav-item">
@@ -157,6 +166,15 @@
                     <i class="fas fa-list-check" style="color:#FBE9E7;font-size:2rem;position:absolute;right:20px;top:20px;" aria-hidden="true"></i>
                 </div>
             </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="stats-card" style="border-left:4px solid #7E57C2;">
+                    <div class="stats-number" style="color:#7E57C2;">
+                        <%= pendientesRevision %>
+                    </div>
+                    <div class="stats-label">Pendientes Revisión</div>
+                    <i class="fas fa-clipboard-check" style="color:#F3E5F5;font-size:2rem;position:absolute;right:20px;top:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
 
         <!-- Acciones Rápidas -->
@@ -188,6 +206,19 @@
                     <div style="font-size:2.5rem;margin-bottom:12px;" aria-hidden="true">📋</div>
                     <h3 style="font-family:'Fredoka One',cursive;color:#7E57C2;font-size:1.1rem;">Ver Bitácora</h3>
                     <p class="text-muted small mb-0">Registro completo de actividades del sistema</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="${pageContext.request.contextPath}/admin/actividades.jsp"
+                   class="d-block p-4 text-decoration-none"
+                   style="background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);
+                          transition:all 0.3s ease;border:2px solid transparent;"
+                   onmouseover="this.style.borderColor='#FF7043'"
+                   onmouseout="this.style.borderColor='transparent'"
+                   aria-label="Revisar actividades de estudiantes">
+                    <div style="font-size:2.5rem;margin-bottom:12px;" aria-hidden="true">✅</div>
+                    <h3 style="font-family:'Fredoka One',cursive;color:#FF7043;font-size:1.1rem;">Revisar Actividades</h3>
+                    <p class="text-muted small mb-0">Aprobar y revisar información registrada por estudiantes</p>
                 </a>
             </div>
             <div class="col-md-4">

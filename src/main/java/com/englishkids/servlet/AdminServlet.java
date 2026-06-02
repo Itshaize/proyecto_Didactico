@@ -5,15 +5,17 @@ import com.englishkids.model.Usuario;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
- * AdminServlet – Gestión de usuarios y aprobación de actividades (perfil administrador).
- * URL: /admin/*
+ * AdminServlet - Gestion de usuarios y revision de actividades.
  */
 @WebServlet("/admin/accion")
 public class AdminServlet extends HttpServlet {
@@ -22,27 +24,22 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Verificar sesión de administrador
-        if (!esAdmin(req, resp)) return;
+        if (!esAdmin(req, resp)) {
+            return;
+        }
 
         String action = req.getParameter("action");
-        String ip     = req.getRemoteAddr();
+        String ip = req.getRemoteAddr();
         Usuario admin = (Usuario) req.getSession().getAttribute("usuario");
 
         try (Connection conn = DBConnection.getConnection()) {
             switch (action != null ? action : "") {
-
-                // ── Agregar nuevo usuario ───────────────────────────
                 case "agregar":
                     agregarUsuario(req, resp, conn, admin, ip);
                     break;
-
-                // ── Actualizar información de usuario ────────────────
                 case "actualizar":
                     actualizarUsuario(req, resp, conn, admin, ip);
                     break;
-
-                // ── Bloquear / Desbloquear usuario ───────────────────
                 case "bloquear":
                     cambiarEstado(req, resp, conn, admin, ip, false);
                     break;
@@ -52,9 +49,9 @@ public class AdminServlet extends HttpServlet {
                 case "revisar_actividad":
                     revisarActividad(req, resp, conn, admin, ip);
                     break;
-
                 default:
                     resp.sendRedirect(req.getContextPath() + "/admin/usuarios.jsp");
+                    break;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,20 +59,18 @@ public class AdminServlet extends HttpServlet {
         }
     }
 
-    // ── Helpers ─────────────────────────────────────────────────────
-
     private void agregarUsuario(HttpServletRequest req, HttpServletResponse resp,
                                 Connection conn, Usuario admin, String ip)
             throws SQLException, IOException {
-        String nombre   = req.getParameter("nombre");
+        String nombre = req.getParameter("nombre");
         String apellido = req.getParameter("apellido");
-        String correo   = req.getParameter("correo");
-        String clave    = req.getParameter("clave");
-        String perfil   = req.getParameter("perfil");
+        String correo = req.getParameter("correo");
+        String clave = req.getParameter("clave");
+        String perfil = req.getParameter("perfil");
 
         String hash = LoginServlet.sha256(clave);
-        String sql  = "INSERT INTO usuarios (nombre, apellido, correo, clave, perfil, activo) " +
-                      "VALUES (?,?,?,?,?,TRUE)";
+        String sql = "INSERT INTO usuarios (nombre, apellido, correo, clave, perfil, activo) " +
+                     "VALUES (?,?,?,?,?,TRUE)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, nombre);
             ps.setString(2, apellido);
@@ -84,18 +79,19 @@ public class AdminServlet extends HttpServlet {
             ps.setString(5, perfil);
             ps.executeUpdate();
         }
+
         LoginServlet.registrarBitacora(conn, admin.getId(), "ADMIN_AGREGAR_USUARIO",
-                "Admin agregó usuario: " + correo, ip);
+                "Admin agrego usuario: " + correo, ip);
         resp.sendRedirect(req.getContextPath() + "/admin/usuarios.jsp?ok=agregado");
     }
 
     private void actualizarUsuario(HttpServletRequest req, HttpServletResponse resp,
                                    Connection conn, Usuario admin, String ip)
             throws SQLException, IOException {
-        int    id       = Integer.parseInt(req.getParameter("id"));
-        String nombre   = req.getParameter("nombre");
+        int id = Integer.parseInt(req.getParameter("id"));
+        String nombre = req.getParameter("nombre");
         String apellido = req.getParameter("apellido");
-        String perfil   = req.getParameter("perfil");
+        String perfil = req.getParameter("perfil");
 
         String sql = "UPDATE usuarios SET nombre=?, apellido=?, perfil=? WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -105,8 +101,9 @@ public class AdminServlet extends HttpServlet {
             ps.setInt(4, id);
             ps.executeUpdate();
         }
+
         LoginServlet.registrarBitacora(conn, admin.getId(), "ADMIN_ACTUALIZAR_USUARIO",
-                "Admin actualizó usuario id=" + id, ip);
+                "Admin actualizo usuario id=" + id, ip);
         resp.sendRedirect(req.getContextPath() + "/admin/usuarios.jsp?ok=actualizado");
     }
 
@@ -120,10 +117,11 @@ public class AdminServlet extends HttpServlet {
             ps.setInt(2, id);
             ps.executeUpdate();
         }
+
         String accion = nuevoEstado ? "ADMIN_DESBLOQUEAR_USUARIO" : "ADMIN_BLOQUEAR_USUARIO";
-        String estado = nuevoEstado ? "desbloqueó" : "bloqueó";
+        String estado = nuevoEstado ? "desbloqueado" : "bloqueado";
         LoginServlet.registrarBitacora(conn, admin.getId(), accion,
-                "Admin " + estado + " usuario id=" + id, ip);
+                "Admin dejo usuario id=" + id + " como " + estado, ip);
         resp.sendRedirect(req.getContextPath() + "/admin/usuarios.jsp?ok=" + estado);
     }
 
@@ -149,10 +147,6 @@ public class AdminServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/admin/actividades.jsp?ok=revision");
     }
 
-    /**
-     * Verifica que el usuario en sesión sea administrador.
-     * Si no lo es, redirige al login.
-     */
     public static boolean esAdmin(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         HttpSession session = req.getSession(false);
@@ -160,11 +154,13 @@ public class AdminServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return false;
         }
-        Usuario u = (Usuario) session.getAttribute("usuario");
-        if (!u.isAdmin()) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        if (!usuario.isAdmin()) {
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return false;
         }
+
         return true;
     }
 }

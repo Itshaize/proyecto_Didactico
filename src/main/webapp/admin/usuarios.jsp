@@ -76,6 +76,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/actividades.jsp">
+                        <i class="fas fa-clipboard-check me-2"></i> Actividades
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">
                         <i class="fas fa-globe me-2"></i> Ver Sitio
                     </a>
