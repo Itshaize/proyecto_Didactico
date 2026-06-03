@@ -1,6 +1,6 @@
 -- ============================================================
 --  EnglishKids - Script de Base de Datos PostgreSQL
---  ODS 4: Edución de Calidad
+--  ODS 4: Educación de Calidad
 --  Aplicación para enseñar inglés a niños
 -- ============================================================
 
@@ -28,7 +28,7 @@ CREATE TABLE usuarios (
     perfil          VARCHAR(20)  NOT NULL DEFAULT 'estudiante'
                         CHECK (perfil IN ('admin','estudiante')),
     activo          BOOLEAN      NOT NULL DEFAULT TRUE,
-    fecha_registro  TIMESTAMP     NOT NULL DEFAULT NOW()
+    fecha_registro  TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
 -- ============================================================
@@ -84,8 +84,8 @@ CREATE TABLE bitacora (
     id_usuario INTEGER      REFERENCES usuarios(id),
     accion     VARCHAR(100) NOT NULL,
     detalle    TEXT,
-    ip        VARCHAR(45),
-    fecha      TIMESTAMP     NOT NULL DEFAULT NOW()
+    ip         VARCHAR(45),
+    fecha      TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
 -- ============================================================
@@ -110,7 +110,7 @@ VALUES
    'estudiante', TRUE);
 
 -- ============================================================
--- CATEGOR�AS
+-- CATEGORÍAS
 -- ============================================================
 INSERT INTO categorias (nombre, nombre_es, descripcion, icono, color_hex)
 VALUES
@@ -129,48 +129,48 @@ VALUES
 -- ============================================================
 INSERT INTO palabras (id_categoria, palabra_en, palabra_es, imagen_url, audio_url, nivel)
 VALUES
-  (1, 'Dog',      'Perro',    'images/animals/dog.png',      'audio/animals/dog.mp3',      'basico'),
-  (1, 'Cat',      'Gato',     'images/animals/cat.png',      'audio/animals/cat.mp3',      'basico'),
-  (1, 'Bird',     'Pájaro',   'images/animals/bird.png',     'audio/animals/bird.mp3',     'basico'),
-  (1, 'Fish',     'Pez',      'images/animals/fish.png',     'audio/animals/fish.mp3',     'basico'),
-  (1, 'Rabbit',   'Conejo',   'images/animals/rabbit.png',   'audio/animals/rabbit.mp3',   'basico'),
-  (1, 'Lion',     'Leó',     'images/animals/lion.png',     'audio/animals/lion.mp3',     'intermedio'),
-  (1, 'Elephant', 'Elefante', 'images/animals/elephant.png', 'audio/animals/elephant.mp3', 'intermedio'),
-  (1, 'Butterfly','Mariposa', 'images/animals/butterfly.png','audio/animals/butterfly.mp3','intermedio'),
-  (1, 'Frog',     'Rana',     'images/animals/frog.png',     'audio/animals/frog.mp3',     'basico'),
-  (1, 'Horse',    'Caballo',  'images/animals/horse.png',    'audio/animals/horse.mp3',    'intermedio');
+  (1, 'Dog',      'Perro',    'images/animals/dog.svg',      'audio/animals/dog.mp3',      'basico'),
+  (1, 'Cat',      'Gato',     'images/animals/cat.svg',      'audio/animals/cat.mp3',      'basico'),
+  (1, 'Bird',     'Pájaro',   'images/animals/bird.svg',     'audio/animals/bird.mp3',     'basico'),
+  (1, 'Fish',     'Pez',      'images/animals/fish.svg',     'audio/animals/fish.mp3',     'basico'),
+  (1, 'Rabbit',   'Conejo',   'images/animals/rabbit.svg',   'audio/animals/rabbit.mp3',   'basico'),
+  (1, 'Lion',     'León',     'images/animals/lion.svg',     'audio/animals/lion.mp3',     'intermedio'),
+  (1, 'Elephant', 'Elefante', 'images/animals/elephant.svg', 'audio/animals/elephant.mp3', 'intermedio'),
+  (1, 'Butterfly','Mariposa', 'images/animals/butterfly.svg','audio/animals/butterfly.mp3','intermedio'),
+  (1, 'Frog',     'Rana',     'images/animals/frog.svg',     'audio/animals/frog.mp3',     'basico'),
+  (1, 'Horse',    'Caballo',  'images/animals/horse.svg',    'audio/animals/horse.mp3',    'intermedio');
 
 -- ============================================================
 -- PALABRAS – COLORES (categoría 2)
--- ===========================================================
+-- ============================================================
 INSERT INTO palabras (id_categoria, palabra_en, palabra_es, imagen_url, audio_url, nivel)
 VALUES
-  (2, 'Red',    'Rojo',     'images/colors/red.png',    'audio/colors/red.mp3',    'basico'),
-  (2, 'Blue',   'Azul',     'images/colors/blue.png',   'audio/colors/blue.mp3',   'basico'),
-  (2, 'Green',  'Verde',    'images/colors/green.png',  'audio/colors/green.mp3',  'basico'),
-  (2, 'Yellow', 'Amarillo', 'images/colors/yellow.png', 'audio/colors/yellow.mp3', 'basico'),
-  (2, 'Purple', 'Morado',   'images/colors/purple.png', 'audio/colors/purple.mp3', 'basico'),
-  (2, 'Orange', 'Naranja',  'images/colors/orange.png', 'audio/colors/orange.mp3', 'basico'),
-  (2, 'Pink',   'Rosado',   'images/colors/pink.png',   'audio/colors/pink.mp3',   'basico'),
-  (2, 'Black', 'Negro',    'images/colors/black.png',  'audio/colors/black.mp3',  'basico'),
-  (2, 'White', 'Blanco',   'images/colors/white.png',  'audio/colors/white.mp3',  'basico'),
-  (2, 'Brown',  'Café',     'images/colors/brown.png',  'audio/colors/brown.mp3',  'basico');
+  (2, 'Red',    'Rojo',     'images/colors/red.svg',    'audio/colors/red.mp3',    'basico'),
+  (2, 'Blue',   'Azul',     'images/colors/blue.svg',   'audio/colors/blue.mp3',   'basico'),
+  (2, 'Green',  'Verde',    'images/colors/green.svg',  'audio/colors/green.mp3',  'basico'),
+  (2, 'Yellow', 'Amarillo', 'images/colors/yellow.svg', 'audio/colors/yellow.mp3', 'basico'),
+  (2, 'Purple', 'Morado',   'images/colors/purple.svg', 'audio/colors/purple.mp3', 'basico'),
+  (2, 'Orange', 'Naranja',  'images/colors/orange.svg', 'audio/colors/orange.mp3', 'basico'),
+  (2, 'Pink',   'Rosado',   'images/colors/pink.svg',   'audio/colors/pink.mp3',   'basico'),
+  (2, 'Black',  'Negro',    'images/colors/black.svg',  'audio/colors/black.mp3',  'basico'),
+  (2, 'White',  'Blanco',   'images/colors/white.svg',  'audio/colors/white.mp3',  'basico'),
+  (2, 'Brown',  'Café',     'images/colors/brown.svg',  'audio/colors/brown.mp3',  'basico');
 
 -- ============================================================
 -- PALABRAS – NÚMEROS (categoría 3)
 -- ============================================================
 INSERT INTO palabras (id_categoria, palabra_en, palabra_es, imagen_url, audio_url, nivel)
 VALUES
-  (3, 'One',     'Uno',    'images/numbers/one.png',     'audio/numbers/one.mp3',     'basico'),
-  (3, 'Two',     'Dos',    'images/numbers/two.png',     'audio/numbers/two.mp3',     'basico'),
-  (3, 'Three',   'Tres',   images/numbers/three.png',   'audio/numbers/three.mp3',   'basico'),
-  (3, 'Four',    'Cuatro', 'images/numbers/four.png',    'audio/numbers/four.mp3',    'basico'),
-  (3, 'Five',    'Cinco',  'images/numbers/five.png',    'audio/numbers/five.mp3',    'basico'),
-  (3, 'Six',     'Seis',   'images/numbers/six.png',     'audio/numbers/six.mp3',     'basico'),
-  (3, 'Seven',   'Siete',  'images/numbers/seven.png',   'audio/numbers/seven.mp3',   'basico'),
-  (3, 'Eight',   'Ocho',   'images/numbers/eight.png',   'audio/numbers/eight.mp3',   'basico'),
-  (3, 'Nine',    'Nueve',  'images/numbers/nine.png',    'audio/numbers/nine.mp3',    'basico'),
-  (3, 'Ten',     'Diez',   'images/numbers/ten.png',     'audio/numbers/ten.mp3',     'basico');
+  (3, 'One',     'Uno',    'images/numbers/one.svg',     'audio/numbers/one.mp3',     'basico'),
+  (3, 'Two',     'Dos',    'images/numbers/two.svg',     'audio/numbers/two.mp3',     'basico'),
+  (3, 'Three',   'Tres',   'images/numbers/three.svg',   'audio/numbers/three.mp3',   'basico'),
+  (3, 'Four',    'Cuatro', 'images/numbers/four.svg',    'audio/numbers/four.mp3',    'basico'),
+  (3, 'Five',    'Cinco',  'images/numbers/five.svg',    'audio/numbers/five.mp3',    'basico'),
+  (3, 'Six',     'Seis',   'images/numbers/six.svg',     'audio/numbers/six.mp3',     'basico'),
+  (3, 'Seven',   'Siete',  'images/numbers/seven.svg',   'audio/numbers/seven.mp3',   'basico'),
+  (3, 'Eight',   'Ocho',   'images/numbers/eight.svg',   'audio/numbers/eight.mp3',   'basico'),
+  (3, 'Nine',    'Nueve',  'images/numbers/nine.svg',    'audio/numbers/nine.mp3',    'basico'),
+  (3, 'Ten',     'Diez',   'images/numbers/ten.svg',     'audio/numbers/ten.mp3',     'basico');
 
 -- ============================================================
 -- BITÁCORA INICIAL
@@ -223,3 +223,4 @@ LEFT JOIN usuarios u ON b.id_usuario = u.id
 ORDER BY b.fecha DESC;
 
 COMMIT;
+

@@ -54,7 +54,7 @@
     <nav class="admin-sidebar d-flex flex-column" style="width:240px;min-width:240px;"
          aria-label="Menú de administración">
         <div class="px-4 py-3">
-            <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.4rem;"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:32px; border-radius:50%; background:#fff; padding:2px; vertical-align:middle; margin-right:6px;" alt=""> EnglishKids</div>
+            <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.4rem;"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:32px; border-radius:50%; background:#fff; padding:2px; vertical-align:middle; margin-right:6px;" alt="Logo de EnglishKids"> EnglishKids</div>
             <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;">Panel Administrador</div>
         </div>
         <hr style="border-color:rgba(255,255,255,0.15);margin:0;">
@@ -73,11 +73,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/bitacora.jsp">
                         <i class="fas fa-list-alt me-2"></i> Bitácora
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/actividades.jsp">
-                        <i class="fas fa-clipboard-check me-2"></i> Actividades
                     </a>
                 </li>
                 <li class="nav-item">
@@ -243,9 +238,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius:20px;">
             <div class="modal-header" style="background:linear-gradient(135deg,#0288D1,#4FC3F7);border:none;border-radius:20px 20px 0 0;">
-                <h5 class="modal-title" id="modalAgregar-label" style="font-family:'Fredoka One',cursive;color:#fff;">
+                <div class="modal-title h2" id="modalAgregar-label" style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.35rem;">
                     ➕ Agregar Nuevo Usuario
-                </h5>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Cerrar modal"></button>
             </div>
@@ -304,9 +299,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius:20px;">
             <div class="modal-header" style="background:linear-gradient(135deg,#7E57C2,#AB47BC);border:none;border-radius:20px 20px 0 0;">
-                <h5 class="modal-title" id="modalEditar-label" style="font-family:'Fredoka One',cursive;color:#fff;">
+                <div class="modal-title h2" id="modalEditar-label" style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.35rem;">
                     ✏️ Editar Usuario
-                </h5>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Cerrar modal"></button>
             </div>

@@ -76,7 +76,7 @@
 <div class="d-flex" style="min-height:100vh;">
     <nav class="admin-sidebar d-flex flex-column" style="width:240px;min-width:240px;" aria-label="Menú de administración">
         <div class="px-4 py-3">
-            <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.4rem;"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:32px; border-radius:50%; background:#fff; padding:2px; vertical-align:middle; margin-right:6px;" alt=""> EnglishKids</div>
+            <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.4rem;"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:32px; border-radius:50%; background:#fff; padding:2px; vertical-align:middle; margin-right:6px;" alt="Logo de EnglishKids"> EnglishKids</div>
             <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;">Panel Administrador</div>
         </div>
         <hr style="border-color:rgba(255,255,255,0.15);margin:0;">
@@ -192,4 +192,3 @@
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>
-

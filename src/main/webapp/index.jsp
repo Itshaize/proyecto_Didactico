@@ -43,7 +43,7 @@
 <nav class="navbar navbar-expand-lg" role="navigation" aria-label="Navegación principal">
     <div class="container">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp" aria-label="EnglishKids - Inicio">
-            <img src="${pageContext.request.contextPath}/img/englishkids_logo.png" alt="Logo" class="brand-icon" style="background:transparent; padding:0; animation:none; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+            <img src="${pageContext.request.contextPath}/img/englishkids_logo.png" alt="Logo de EnglishKids" class="brand-icon" style="background:transparent; padding:0; animation:none; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
             EnglishKids
         </a>
 
@@ -289,7 +289,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <div class="footer-logo mb-2"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:28px; border-radius:50%; vertical-align:middle; background:#fff; margin-right:6px;" alt=""> EnglishKids</div>
+                <div class="footer-logo mb-2"><img src="${pageContext.request.contextPath}/img/englishkids_logo.png" style="height:28px; border-radius:50%; vertical-align:middle; background:#fff; margin-right:6px;" alt="Logo de EnglishKids"> EnglishKids</div>
                 <p class="small" style="color:rgba(255,255,255,0.6);">
                     Aplicación web educativa para enseñar inglés a niños.<br>
                     ODS 4: Educación de Calidad.

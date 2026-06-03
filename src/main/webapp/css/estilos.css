@@ -727,6 +727,246 @@ body {
     .admin-sidebar    { min-height: auto; }
 }
 
+/* Dashboard administrativo: tarjetas limpias sin depender de emojis */
+#contenido .stats-card {
+    min-height: 126px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#contenido .stats-label {
+    color: #334155;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"],
+#contenido a[aria-label="Ver bitácora del sistema"],
+#contenido a[aria-label="Ver bitácora del sistema"],
+#contenido a[aria-label="Ver el sitio web público"],
+#contenido a[aria-label="Ver el sitio web público"] {
+    background: #fff !important;
+    border: 2px solid #E6EEF8 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 26px rgba(15, 82, 128, 0.08) !important;
+    display: block !important;
+    min-height: 150px;
+    padding: 28px 24px !important;
+    text-decoration: none !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"]:hover,
+#contenido a[aria-label="Ver bitácora del sistema"]:hover,
+#contenido a[aria-label="Ver bitácora del sistema"]:hover,
+#contenido a[aria-label="Ver el sitio web público"]:hover,
+#contenido a[aria-label="Ver el sitio web público"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(15, 82, 128, 0.14) !important;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] > div:first-child,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child {
+    align-items: center;
+    border-radius: 14px;
+    display: inline-flex;
+    font-size: 0 !important;
+    height: 54px;
+    justify-content: center;
+    margin-bottom: 16px !important;
+    width: 54px;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] > div:first-child::before,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child::before,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child::before,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child::before,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child::before {
+    color: #fff;
+    font-family: "Font Awesome 6 Free";
+    font-size: 1.65rem;
+    font-weight: 900;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] {
+    border-color: #B7DFFF !important;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] > div:first-child {
+    background: #0288D1;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] > div:first-child::before {
+    content: "\f0c0";
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] h3 {
+    color: #0277BD !important;
+}
+
+#contenido a[aria-label="Ver bitácora del sistema"],
+#contenido a[aria-label="Ver bitácora del sistema"] {
+    border-color: #D7C5F5 !important;
+}
+
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child {
+    background: #7E57C2;
+}
+
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child::before,
+#contenido a[aria-label="Ver bitácora del sistema"] > div:first-child::before {
+    content: "\f46d";
+}
+
+#contenido a[aria-label="Ver bitácora del sistema"] h3,
+#contenido a[aria-label="Ver bitácora del sistema"] h3 {
+    color: #6A45B8 !important;
+}
+
+#contenido a[aria-label="Ver el sitio web público"],
+#contenido a[aria-label="Ver el sitio web público"] {
+    border-color: #BDEFE7 !important;
+}
+
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child {
+    background: #00897B;
+}
+
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child::before,
+#contenido a[aria-label="Ver el sitio web público"] > div:first-child::before {
+    content: "\f0ac";
+}
+
+#contenido a[aria-label="Ver el sitio web público"] h3,
+#contenido a[aria-label="Ver el sitio web público"] h3 {
+    color: #00897B !important;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] h3,
+#contenido a[aria-label="Ver bitácora del sistema"] h3,
+#contenido a[aria-label="Ver bitácora del sistema"] h3,
+#contenido a[aria-label="Ver el sitio web público"] h3,
+#contenido a[aria-label="Ver el sitio web público"] h3 {
+    font-size: 1.2rem !important;
+    margin-bottom: 8px;
+}
+
+#contenido a[aria-label="Gestionar usuarios del sistema"] p,
+#contenido a[aria-label="Ver bitácora del sistema"] p,
+#contenido a[aria-label="Ver bitácora del sistema"] p,
+#contenido a[aria-label="Ver el sitio web público"] p,
+#contenido a[aria-label="Ver el sitio web público"] p {
+    color: #475569 !important;
+    font-size: 1rem !important;
+}
+
+#btn-contraste {
+    background: #0B5CAD !important;
+    color: #fff !important;
+    font-size: 1rem !important;
+}
+
+/* Dashboard admin final */
+.dashboard-stat-card {
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.dashboard-stat-icon {
+    font-size: 2.35rem;
+    position: absolute;
+    right: 22px;
+    top: 22px;
+}
+
+.dashboard-action-card {
+    background: #fff;
+    border: 2px solid #E6EEF8;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(15, 82, 128, 0.08);
+    display: block;
+    min-height: 160px;
+    padding: 28px 24px;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(15, 82, 128, 0.14);
+    text-decoration: none;
+}
+
+.dashboard-action-icon {
+    align-items: center;
+    border-radius: 14px;
+    color: #fff;
+    display: inline-flex;
+    font-size: 1.55rem;
+    height: 54px;
+    justify-content: center;
+    margin-bottom: 16px;
+    width: 54px;
+}
+
+.dashboard-action-title {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.dashboard-action-text {
+    color: #475569;
+    display: block;
+    font-size: 1rem;
+}
+
+.dashboard-action-users {
+    border-color: #B7DFFF;
+}
+
+.dashboard-action-users .dashboard-action-icon {
+    background: #0288D1;
+}
+
+.dashboard-action-users .dashboard-action-title {
+    color: #0277BD;
+}
+
+.dashboard-action-log {
+    border-color: #D7C5F5;
+}
+
+.dashboard-action-log .dashboard-action-icon {
+    background: #7E57C2;
+}
+
+.dashboard-action-log .dashboard-action-title {
+    color: #6A45B8;
+}
+
+.dashboard-action-site {
+    border-color: #BDEFE7;
+}
+
+.dashboard-action-site .dashboard-action-icon {
+    background: #00897B;
+}
+
+.dashboard-action-site .dashboard-action-title {
+    color: #00897B;
+}
+
 @media (max-width: 576px) {
     .category-icon    { width: 70px; height: 70px; font-size: 1.7rem; }
     .quiz-img         { width: 120px; height: 120px; }
